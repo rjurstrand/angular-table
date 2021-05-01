@@ -1,0 +1,72 @@
+<div class="table">
+  <input
+    *ngIf="hasFilter"
+    type="text"
+    [(ngModel)]="filter"
+    class="form-control"
+    placeholder="Filter ..."
+    (ngModelChange)="first()"
+  />
+
+  <div class="table-responsive">
+    <ng-container
+      *ngIf="dataSource$ | async | filter: columns:filter as filteredItems"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th
+              *ngFor="let c of columns"
+              [class.center]="c.center"
+              [attr.width]="c.width ? c.width + '%' : ''"
+              [class.sortable]="c.sortable"
+              [class.sort-asc]="
+                c.property === sortProperty && sortDirection === 'asc'
+              "
+              [class.sort-desc]="
+                c.property === sortProperty && sortDirection === 'desc'
+              "
+              (click)="sort(c)"
+            >
+              <span>{{ c.text }}</span>
+            </th>
+          </tr>
+        </thead>
+        <tbody cdkDropList (cdkDropListDropped)="drop($event)">
+          <tr
+            cdkDrag
+            [cdkDragDisabled]="!dragNDrop"
+            *ngFor="
+              let r of filteredItems
+                | sort: sortProperty:sortDirection
+                | slice
+                  : (pageSize ? page * pageSize - pageSize : 0)
+                  : (pageSize ? page * pageSize : rows.length);
+              let i = index
+            "
+          >
+            <td *ngFor="let c of columns" [class.center]="c.center">
+              <span *ngIf="c.property">{{ r[c.property] }}</span>
+              <ng-container
+                *ngIf="c.template"
+                [ngTemplateOutlet]="c.template"
+                [ngTemplateOutletContext]="{ $implicit: r, idx: i }"
+              ></ng-container>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <app-paging
+        *ngIf="pageSize"
+        [page]="page"
+        [pageSize]="pageSize"
+        [numberOfFilteredItems]="filteredItems.length"
+        (next$)="next()"
+        (previous$)="previous()"
+        (first$)="first()"
+        (last$)="last($event)"
+      ></app-paging>
+    </ng-container>
+  </div>
+</div>

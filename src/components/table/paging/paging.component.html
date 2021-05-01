@@ -1,0 +1,7 @@
+<div class="paging">
+  <button [disabled]="page === 1" (click)="first()"><<</button>
+  <button [disabled]="page === 1" (click)="previous()"><</button>
+  <span>{{ page }} / {{ lastPage }}</span>
+  <button [disabled]="page === lastPage" (click)="next()">></button>
+  <button [disabled]="page === lastPage" (click)="last()">>></button>
+</div>

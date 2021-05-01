@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Drag n' drop</h2>
+      <app-table
+        *ngIf="!!columns.length && !!persons.length"
+        [columns]="columns"
+        [rows]="persons"
+        [dragNDrop]="true"
+      ></app-table>
+    </div>
+  </div>
+</div>
