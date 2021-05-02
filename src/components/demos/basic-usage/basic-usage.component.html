@@ -9,12 +9,13 @@
         [pageSize]="25"
         [defaultSortDirection]="'asc'"
         [defaultSortProp]="'lastName'"
+        (rowClick$)="rowClick($event)"
       ></app-table>
     </div>
   </div>
 
   <ng-template #options let-row>
-    <button (click)="edit(row)"><i class="fas fa-pen"></i></button>
-    <button (click)="delete(row)"><i class="fas fa-trash"></i></button>
+    <button (click)="edit($event, row)"><i class="fas fa-pen"></i></button>
+    <button (click)="delete($event, row)"><i class="fas fa-trash"></i></button>
   </ng-template>
 </div>

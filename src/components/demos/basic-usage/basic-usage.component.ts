@@ -30,12 +30,18 @@ export class BasicUsageComponent implements OnInit, AfterViewInit {
     this.initColumns();
   }
 
-  edit(row: IPerson) {
+  edit(mouseEvent: MouseEvent, row: IPerson) {
+    mouseEvent.stopPropagation();
     console.log("edit", row);
   }
 
-  delete(row: IPerson) {
+  delete(mouseEvent: MouseEvent, row: IPerson) {
+    mouseEvent.stopPropagation();
     console.log("delete", row);
+  }
+
+  rowClick(row: IPerson) {
+    console.log("row click", row);
   }
 
   //////////

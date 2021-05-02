@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { Observable, of } from "rxjs";
 import IColumn from "src/domain/column";
 import { rotate } from "src/domain/sort";
@@ -15,6 +15,8 @@ export class TableComponent implements OnInit {
   @Input() defaultSortProp: string;
   @Input() defaultSortDirection: string;
   @Input() dragNDrop: boolean;
+
+  @Output() rowClick$ = new EventEmitter<any>();
 
   page = 1;
   dataSource$: Observable<any[]>;
@@ -67,5 +69,9 @@ export class TableComponent implements OnInit {
 
     this.sortProperty = c.property;
     this.sortDirection = rotate[this.sortDirection];
+  }
+
+  rowClick(row: any): void {
+    this.rowClick$.emit(row);
   }
 }

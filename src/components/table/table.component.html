@@ -36,6 +36,9 @@
           <tr
             cdkDrag
             [cdkDragDisabled]="!dragNDrop"
+            [class.pointer]="
+              rowClick$.observers && !!rowClick$.observers.length
+            "
             *ngFor="
               let r of filteredItems
                 | sort: sortProperty:sortDirection
@@ -44,6 +47,7 @@
                   : (pageSize ? page * pageSize : rows.length);
               let i = index
             "
+            (click)="rowClick(r)"
           >
             <td *ngFor="let c of columns" [class.center]="c.center">
               <span *ngIf="c.property">{{ r[c.property] }}</span>
