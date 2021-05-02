@@ -6,6 +6,7 @@
 @import "~@fortawesome/fontawesome-free/scss/brands";
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "./cdk.scss";
+
 html,
 body {
   margin: 0;
@@ -13,4 +14,8 @@ body {
   font-size: 16px;
   font-family: Segoe UI, Frutiger, Frutiger Linotype, Dejavu Sans,
     Helvetica Neue, Arial, sans-serif;
+}
+
+.pointer {
+  cursor: pointer;
 }
